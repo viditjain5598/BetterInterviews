@@ -10,11 +10,11 @@ class InterviewsController < ApplicationController
 
 
   def new
-    @interview = Interview.new
+    @interview = current_user.interviews.build
   end
 
   def create
-    @interview = Interview.new(interview_params)
+    @interview = current_user.interviews.build(interview_params)
 
     if @interview.save
       redirect_to @interview, notice: "Successfully saved interview details"
