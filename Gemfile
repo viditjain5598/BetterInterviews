@@ -30,6 +30,8 @@ gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'devise', '~> 4.7', '>= 4.7.1'
 # Generate forms easily
 gem 'simple_form', '~> 5.0', '>= 5.0.2'
+# Simple, efficient background processing for Ruby.
+gem 'sidekiq', '~> 6.0', '>= 6.0.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
