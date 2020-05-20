@@ -17,8 +17,8 @@ class InterviewsController < ApplicationController
     @interview = current_user.interviews.build(interview_params)
 
     if @interview.save
+      InterviewMailer.reminder_email(@interview).deliver_later(wait_until: @interview.scheduled_time - 30.minutes)
       redirect_to @interview, notice: "Successfully saved interview details"
-      UserMailer.with(:interview=>@interview, :user_id=>member).updation_mails.deliver_later(wait_until: @interview.scheduled_time - 30.minutes)
     else
       render 'new'
     end
@@ -29,6 +29,7 @@ class InterviewsController < ApplicationController
 
   def update
     if @interview.update(interview_params)
+      InterviewMailer.updation_email(@interview).deliver_now
       redirect_to @interview, notice: "Updated Successfully"
     else
       render 'edit'
