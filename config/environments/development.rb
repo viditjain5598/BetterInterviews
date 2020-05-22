@@ -54,8 +54,24 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  # to be appraised of mailing errors
+  config.action_mailer.raise_delivery_errors = true
+  host = 'localhost:3000'
+  config.action_mailer.default_url_options = { :host => host, protocol: 'http' }
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :authentication       => "plain",
+    :enable_starttls_auto => true,
+    :user_name            => ENV["GMAIL_USERNAME"],
+    :password             => ENV["GMAIL_PASSWORD"]
 
+  }
+  #required for Devise
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # to deliver to the browser instead of email
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
 end
