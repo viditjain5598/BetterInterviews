@@ -10,17 +10,27 @@ class InterviewsController < ApplicationController
 
 
   def new
-    @interview = current_user.interviews.build
+    @interview = Interview.new
   end
 
   def create
-    @interview = current_user.interviews.build(interview_params)
-
-    if @interview.save
-      InterviewMailer.reminder_email(@interview).deliver_later(wait_until: @interview.scheduled_time - 30.minutes)
-      redirect_to @interview, notice: "Successfully saved interview details"
+    members = params[:interview][:members].split(',')
+    if no_conflicts(members, params[:interview])
+      @interview = Interview.new(interview_params)
+      if @interview.save
+        members.each do |member|
+          user_interview = UserInterview.new
+          user_interview.interview_id = @interview.id
+          user_interview.user_id = member
+          user_interview.save
+          InterviewMailer.reminder_email(@interview, member).deliver_later(wait_until: (@interview.scheduled_time - 30.minutes))
+        end
+        redirect_to @interview, notice: "Successfully saved interview details"
+      else
+        render 'new'
+      end
     else
-      render 'new'
+      redirect_to root_path, notice: "There was a conflict in that interview!"
     end
   end
 
@@ -43,8 +53,19 @@ class InterviewsController < ApplicationController
 
   private
 
+  def no_conflicts(members, new_interview)
+    members.each do |member|
+      @conflicting_interviews = Interview.select("interviews.id").joins(:user_interviews).where(scheduled_time: new_interview.scheduled_time .. new_interview.end_time)
+                                .or(Interview.select("interviews.id").joins(:user_interviews).where(end_time: new_interview.scheduled_time .. new_interview.end_time))
+      if conflicting_interviews
+        return false
+      end
+    end
+    return true
+  end
+
   def interview_params
-    params.require(:interview).permit(:title, :description, :scheduled_time, :resume)
+    params.require(:interview).permit(:title, :description, :scheduled_time, :end_time, :resume)
   end
 
   def find_interview
