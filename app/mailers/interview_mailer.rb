@@ -5,9 +5,10 @@ class InterviewMailer < ApplicationMailer
   #
   #   en.interview_mailer.reminder_email.subject
   #
-  def reminder_email(interview)
+  def reminder_email(interview, member)
     @interview = interview
-    mail to: interview.user.email, subject: "REMINDER: Interview in 30 minutes!"
+    @user = User.find(:member)
+    mail to: user.email, subject: "REMINDER: Interview in 30 minutes!"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
