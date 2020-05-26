@@ -19,10 +19,10 @@
       = f.text_field :members, input_html: { class: 'form-control'}
     .form-group
       = f.label :start_time
-      = f.datetime_field :scheduled_time, input_html: { class: 'form-control'}
+      = f.datetime_local_field :scheduled_time, input_html: { class: 'date-picker'}
     .form-group
       = f.label :end_time
-      = f.datetime_field :end_time, input_html: { class: 'form-control'}
+      = f.datetime_local_field :end_time, input_html: { class: 'form-control'}
     .form-group
       = f.file_field :resume
     =f.button :submit, class: "btn btn-primary" 
