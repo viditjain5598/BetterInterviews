@@ -1,8 +1,15 @@
 class InterviewsController < ApplicationController
   before_action :find_interview, only: [:show, :edit, :update, :destroy]
+  before_filter :set_headers
 
   def index
-    @interviews = Interview.all.order("scheduled_time ASC")
+    interviews = Interview.all.order("scheduled_time ASC")
+    render json: interviews
+  end
+
+  def fetch
+    interviews = Interview.all.order("scheduled_time ASC")
+    render json: interviews
   end
 
   def show
@@ -52,6 +59,13 @@ class InterviewsController < ApplicationController
   end
 
   private
+
+  def set_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Expose-Headers'] = 'ETag'
+    headers['Access-Control-Allow-Methods'] = 'GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD'
+    headers['Access-Control-Allow-Headers'] = '*,x-requested-with,Content-Type,If-Modified-Since,If-None-Match'
+  end
 
   def no_conflicts(members, new_interview)
     members.each do |member|
