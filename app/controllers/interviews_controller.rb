@@ -15,7 +15,7 @@ class InterviewsController < ApplicationController
 
   def create
     members = params[:interview][:members].split(',')
-    if no_conflicts(members, params[:interview])
+    if Interview.no_conflicts(members, params[:interview])
       @interview = Interview.new(interview_params)
       if @interview.save
         members.each do |member|
@@ -52,17 +52,6 @@ class InterviewsController < ApplicationController
   end
 
   private
-
-  def no_conflicts(members, new_interview)
-    members.each do |member|
-      @conflicting_interviews = Interview.select("interviews.id").joins(:user_interviews).where(scheduled_time: new_interview.scheduled_time .. new_interview.end_time)
-                                .or(Interview.select("interviews.id").joins(:user_interviews).where(end_time: new_interview.scheduled_time .. new_interview.end_time))
-      if conflicting_interviews
-        return false
-      end
-    end
-    return true
-  end
 
   def interview_params
     params.require(:interview).permit(:title, :description, :scheduled_time, :end_time, :resume)
