@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from "react";
-import Form from "./Form";
+import FormInterview from "./Form";
 import { Link } from "react-router-dom";
 
-const New = ()=> {
+const NewInterview = ()=> {
 
-  const [start, setStart] = useState();
-  const [end, setEnd] = useState();
+  const [scheduledTime, setScheduledTime] = useState();
+  const [endTime, setEndTime] = useState();
   const [title, setTitle] = useState();
-  const [pemail, setPemail] = useState();
-  const [position, setPosition] = useState();
+  const [email, setEmail] = useState();
 
   useEffect(()=>{
 
@@ -16,8 +15,7 @@ const New = ()=> {
       start: start,
       end: end,
       title: title,
-      pemail: pemail,
-      position:position
+      email: email,
     };
 
     const req = {
@@ -35,7 +33,6 @@ const New = ()=> {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log("submitted form")
   };
 
   return (
@@ -53,7 +50,7 @@ const New = ()=> {
         <input
           type="datetime-local"
           value={start}
-          onChange={(e) => setStart(e.target.value)}
+          onChange={(e) => setScheduledTime(e.target.value)}
         />
       </label>
       <label>
@@ -61,7 +58,7 @@ const New = ()=> {
         <input
           type="datetime-local"
           value={end}
-          onChange={(e) => setEnd(e.target.value)}
+          onChange={(e) => setEndTime(e.target.value)}
         />
       </label>
       <label>
@@ -69,15 +66,7 @@ const New = ()=> {
         <input
           type="text"
           value={pemail}
-          onChange={(e) => setPemail(e.target.value)}
-        />
-      </label>
-      <label>
-        Enter Participant's Role
-        <input
-          type="text"
-          value={position}
-          onChange={(e) => setPosition(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </label>
       <input type="submit" value="Submit" />
@@ -85,4 +74,4 @@ const New = ()=> {
   );
 }
 
-export default New;
+export default NewInterview;

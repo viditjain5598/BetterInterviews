@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Edit = () => {
-  const [start, setStart] = useState();
-  const [end, setEnd] = useState();
+  const [scheduleTime, setScheduleTime] = useState();
+  const [endTime, setEndTime] = useState();
   const [title, setTitle] = useState();
-  const [pemail, setPemail] = useState();
-  const [position, setPosition] = useState();
-
+  const [email, setEmail] = useState();
+  
   useEffect(() => {
     const data = {
       start: start,

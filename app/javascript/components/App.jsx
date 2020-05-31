@@ -1,18 +1,17 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router'
 import Home from "./Home";
-import New from "./New";
-import Show from "./Show";
+import NewInterview from "./New";
 import Edit from "./Edit";
 
-const App = ()=> {
+const App = (props)=> {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/interview/:id" component={Show} />
-        <Route exact path="/interview/new" component={New} />
-        <Route path="/interview/:id/edit" component={Edit} />
+        <Route path="/interviews/:id" component={ShowInterview} />
+        <Route exact path="/interviews/new" component={NewInterview} />
+        <Route path="/interviews/:id/edit" component={EditInterview} />
       </Switch>
     </div>
   );
