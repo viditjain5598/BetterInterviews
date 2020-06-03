@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const Edit = () => {
   const [scheduleTime, setScheduleTime] = useState();
@@ -12,12 +12,11 @@ const Edit = () => {
       start: start,
       end: end,
       title: title,
-      pemail: pemail,
-      position: position,
+      email: email,
     };
 
     const req = {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -64,14 +63,6 @@ const Edit = () => {
           type="text"
           value={pemail}
           onChange={(e) => setPemail(e.target.value)}
-        />
-      </label>
-      <label>
-        Enter Participant's Role
-        <input
-          type="text"
-          value={position}
-          onChange={(e) => setPosition(e.target.value)}
         />
       </label>
       <input type="submit" value="Submit" />

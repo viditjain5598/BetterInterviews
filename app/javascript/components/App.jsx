@@ -1,8 +1,8 @@
 import React from 'react'
-import {Route, Switch} from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import Home from "./Home";
 import NewInterview from "./New";
-import Edit from "./Edit";
+import EditInterview from "./Edit";
 
 const App = (props)=> {
   return (

@@ -65,7 +65,7 @@ const NewInterview = ()=> {
         Enter Participant's Email
         <input
           type="text"
-          value={pemail}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
