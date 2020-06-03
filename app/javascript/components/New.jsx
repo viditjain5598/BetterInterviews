@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import FormInterview from "./Form";
+import Server from "./Config"
 import { Link } from "react-router-dom";
 
 const NewInterview = ()=> {
@@ -26,7 +27,7 @@ const NewInterview = ()=> {
       body: JSON.stringify(data),
     };
 
-    fetch(`http://localhost:3000/interviews`, req)
+    fetch(`${Server.prefix}/interviews`, req)
       .then(res => res.json())
   });
 

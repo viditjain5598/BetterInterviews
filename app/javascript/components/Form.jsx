@@ -1,4 +1,5 @@
 import React from 'react'
+import Server from "./Config"
 import Home from './Home'
 
 const FormInterview = ()=>{

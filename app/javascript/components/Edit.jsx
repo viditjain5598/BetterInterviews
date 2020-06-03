@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Server from "./Config"
 import { Link } from "react-router-dom";
 
 const Edit = () => {
@@ -23,7 +24,7 @@ const Edit = () => {
       body: JSON.stringify(data),
     };
 
-    fetch(`http://localhost:3000/interviews`, req).then((res) => res.json());
+    fetch(`${Server.prefix}/interviews`, req).then((res) => res.json());
   });
 
   const handleSubmit = (e) => {

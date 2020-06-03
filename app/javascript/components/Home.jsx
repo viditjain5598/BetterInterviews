@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Server from "./Config"
 import { Link } from 'react-router-dom'
 
 const Home = ()=> {
@@ -6,7 +7,7 @@ const Home = ()=> {
   const [interviews, setInterviews] = useState([]);
 
   useEffect(()=>{
-    fetch("http://localhost:3000/home")
+    fetch(`${Server.prefix}/home`)
       .then(res => res.json())
       .then(interview => {setInterviews(interview)})
   }, [])
