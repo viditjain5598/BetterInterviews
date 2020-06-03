@@ -1,0 +1,35 @@
+import React, { useState, useEffect } from 'react'
+import Server from "./Config"
+import { Link } from 'react-router-dom'
+
+const Home = ()=> {
+
+  const [interviews, setInterviews] = useState([]);
+
+  useEffect(()=>{
+    fetch(`${Server.prefix}/home`)
+      .then(res => res.json())
+      .then(interview => {setInterviews(interview)})
+  }, [])
+  return (
+    <div>
+      {interviews.length > 0 ? (
+        interviews.map((interview) => (
+          <div>
+            <h3>{interview.title}</h3>
+            <p>Date: {interview.scheduled_time.split("T")[0]}</p>
+            <p>Start: {interview.scheduled_time.split("T")[1].slice(0, 5)}</p>
+            <p>End: {interview.end_time.split("T")[1].slice(0, 5)}</p>
+            <Link to={`/interview/${interview.id}`}>Show</Link>
+            <Link to={`/interview/${interview.id}/edit`}>Edit</Link>
+          </div>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
+      <Link to="/interview/new">Add Interview</Link>
+    </div>
+  );
+}
+
+export default Home; 
